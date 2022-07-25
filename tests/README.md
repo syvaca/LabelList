@@ -1,4 +1,4 @@
-# CS104 HW1 Test Suite
+# Label List Test Suite
 
 ### Using the Tests
 1. Copy this directory into the same folder as labellist code
