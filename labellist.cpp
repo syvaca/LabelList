@@ -2,8 +2,6 @@
 #include <cassert>
 
 
-
-// Complete - Do not alter
 LabelList::MsgNode::MsgNode(const MsgType& msg)
     : msg_(msg)
 {
@@ -13,22 +11,18 @@ LabelList::MsgNode::MsgNode(const MsgType& msg)
     prev_.push_back(nullptr);
 }
 
-// Complete - Do not alter
 LabelList::MsgToken::MsgToken()
  : node_(nullptr), list_(nullptr)
 {
 }
 
-// To be completed - must adhere to any requirements in the .h file
 LabelList::MsgToken::MsgToken(MsgNode* node, LabelList* list)
 // Add any initializers here
-
 {
     node_ = node;
     list_ = list;
 }
 
-// To be completed - must adhere to any requirements in the .h file
 bool LabelList::MsgToken::operator==(const MsgToken& rhs) const
 {
     //checking to see if the nodes are the same
@@ -41,13 +35,11 @@ bool LabelList::MsgToken::operator==(const MsgToken& rhs) const
     }
 }
 
-// Complete - Do not alter
 bool LabelList::MsgToken::operator!=(const MsgToken& rhs) const
 {
     return !operator==(rhs);
 }
 
-// To be completed - must adhere to any requirements in the .h file
 LabelList::MsgToken::operator bool() const
 {
     if(this->node_ == NULL) {
@@ -58,13 +50,11 @@ LabelList::MsgToken::operator bool() const
     }
 }
 
-// Complete - Do not alter
 bool LabelList::MsgToken::isValid() const
 {
     return this->node_ != nullptr;
 }
 
-// Complete - Do not alter
 LabelList::MsgToken& LabelList::MsgToken::next(const LabelType& label)
 {
     size_t index = this->list_->findLabelIndex(label);
@@ -78,7 +68,6 @@ LabelList::MsgToken& LabelList::MsgToken::next(const LabelType& label)
     return *this;
 }
 
-// Complete - Do not alter
 LabelList::MsgToken& LabelList::MsgToken::prev(const LabelType& label)
 {
     size_t index = this->list_->findLabelIndex(label);
@@ -92,14 +81,12 @@ LabelList::MsgToken& LabelList::MsgToken::prev(const LabelType& label)
     return *this;
 }
 
-// Complete - Do not alter
 bool LabelList::MsgToken::isLabelMember(const LabelType& label) const
 {
     size_t index = this->list_->findLabelIndex(label);
     return isLabelMember(index);
 }
 
-// Complete - Do not alter
 bool LabelList::MsgToken::isLabelMember(size_t index) const
 {
     return this->isValid() && 
@@ -108,7 +95,6 @@ bool LabelList::MsgToken::isLabelMember(size_t index) const
             this->node_->labelled_[index] ;
 }
 
-// To be completed - must adhere to any requirements in the .h file
 LabelList::MsgType const & LabelList::MsgToken::msg() const
 {
     //if node doesn't exist
@@ -120,7 +106,7 @@ LabelList::MsgType const & LabelList::MsgToken::msg() const
         return this->node_->msg_;
     }
 }
-// To be completed - must adhere to any requirements in the .h file
+
 LabelList::MsgType& LabelList::MsgToken::msg() 
 {
     //if node doesn't exist
@@ -133,7 +119,6 @@ LabelList::MsgType& LabelList::MsgToken::msg()
     }
 }
 
-// To be completed - must adhere to any requirements in the .h file
 std::ostream& operator<<(std::ostream& ostr, const LabelList::MsgToken& token)
 {
     if(token.isValid())
@@ -142,27 +127,21 @@ std::ostream& operator<<(std::ostream& ostr, const LabelList::MsgToken& token)
     }
     return ostr;
 }
-
-// Static constant 
+ 
 const LabelList::MsgToken LabelList::end_(nullptr, nullptr);
 
-// To be completed - must adhere to any requirements in the .h file
 LabelList::LabelList() 
-// Add any initializers here
-
 {
     heads_.push_back(NULL);
     labels_.push_back("all");
     tail_ = NULL;
 }
 
-// To be completed - must adhere to any requirements in the .h file
 LabelList::~LabelList()
 {
-    // clear();
+    clear();
 }
 
-// To be completed - must adhere to any requirements in the .h file
 void LabelList::clear()
 {
     // MsgNode* temp = heads_[0];
@@ -179,7 +158,6 @@ void LabelList::clear()
     // delete temp;
 }
 
-// To be completed - must adhere to any requirements in the .h file
 bool LabelList::empty() const
 {
     //check to see if all is empty
@@ -192,7 +170,6 @@ bool LabelList::empty() const
     }
 }
 
-// Complete
 size_t LabelList::size() const
 {
     MsgNode* n = this->heads_[0];
@@ -204,7 +181,6 @@ size_t LabelList::size() const
     return cnt;
 }
 
-// To be completed - must adhere to any requirements in the .h file
 LabelList::MsgToken LabelList::add(const MsgType& msg)
 {
 
@@ -228,7 +204,6 @@ LabelList::MsgToken LabelList::add(const MsgType& msg)
     
 }
 
-// To be completed - must adhere to any requirements in the .h file
 void LabelList::remove(const MsgToken& token)
 {
     //access the label that isnt put in labels_ yet
@@ -279,20 +254,13 @@ void LabelList::remove(const MsgToken& token)
                 node->next_[ind] = NULL;
                 continue;
             }
-
-            
-            
         }
         //delete node;
     }
-
-
 }
 
-// To be completed - must adhere to any requirements in the .h file
 void LabelList::label(const MsgToken& token, const LabelType& label)
 {
-    
     if(!token.isValid())
     {
         throw std::invalid_argument("Bad token in label()");
@@ -333,7 +301,6 @@ void LabelList::label(const MsgToken& token, const LabelType& label)
         //add MsgNode to new label 
         heads_.push_back(node); 
     }
-
     
     //add to existing label
     if(new_label == false) {
@@ -351,8 +318,7 @@ void LabelList::label(const MsgToken& token, const LabelType& label)
         node->labelled_.push_back(true);
         node->next_.push_back(nullptr);
         node->prev_.push_back(nullptr);
-    
-        
+     
         while(temp != NULL) {
             //walk backwards
             //traverse through label to see if temp is in the label
@@ -381,7 +347,6 @@ void LabelList::label(const MsgToken& token, const LabelType& label)
             }
         }
 
-        
         if(in_label) { //temp in label
         
             //insert between temp and temp next
@@ -401,15 +366,11 @@ void LabelList::label(const MsgToken& token, const LabelType& label)
                 node->next_[num] = NULL;
                 node->prev_[num] = temp;
                 node->labelled_[num] = true;
-            }
-            
+            } 
         }
     }
-  
-
 }
 
-// To be completed - must adhere to any requirements in the .h file
 void LabelList::unlabel(const MsgToken& token, const LabelType& label)
 {
     if(!token.isValid())
@@ -460,7 +421,6 @@ void LabelList::unlabel(const MsgToken& token, const LabelType& label)
 
 }
 
-// Complete - Do not alter
 LabelList::MsgToken LabelList::find(const MsgType& msg, const LabelType& label)
 {
     // See if the label exists, will throw if not
@@ -477,7 +437,6 @@ LabelList::MsgToken LabelList::find(const MsgType& msg, const LabelType& label)
     return end();
 }
 
-// To be completed - must adhere to any requirements in the .h file
 LabelList::MsgToken LabelList::find(size_t index, const LabelType& label)
 {
     MsgNode* tempnode;
@@ -495,9 +454,6 @@ LabelList::MsgToken LabelList::find(size_t index, const LabelType& label)
     }
 
     size_t labelind = getLabelIndex(label);
-
-
-    
     tempnode = heads_[labelind];
 
     for(size_t i = 0; i < index; i++) {
@@ -508,19 +464,14 @@ LabelList::MsgToken LabelList::find(size_t index, const LabelType& label)
             return end_;
         }
      }
-
     return MsgToken(tempnode, this);
-
-    
 }
 
-// Complete - Do not alter
 LabelList::MsgToken const & LabelList::end() const
 {
     return end_;
 }
 
-// Complete - Do not alter
 void LabelList::print(std::ostream& ostr, const LabelType& label, char separator) const
 {
     size_t level = this->getLabelIndex(label);
@@ -533,7 +484,6 @@ void LabelList::print(std::ostream& ostr, const LabelType& label, char separator
     ostr << std::endl;
 }
 
-// To be completed - must adhere to any requirements in the .h file
 size_t LabelList::findLabelIndex(const LabelType& label) const
 {
     for(unsigned int i = 0; i < labels_.size(); i++) {
@@ -541,12 +491,9 @@ size_t LabelList::findLabelIndex(const LabelType& label) const
             return i;
         }
     }
-
     return INVALID_LABEL;
-
 }
 
-// Complete - Do not alter
 size_t LabelList::getLabelIndex(const LabelType& label) const
 {
     size_t retval = this->findLabelIndex(label);
