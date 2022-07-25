@@ -13,4 +13,4 @@ I have defined operations to add/remove messages within an email account as well
 
 HOW TO RUN THE TESTS
 
-...
+follow the README.md file in 'tests' file
